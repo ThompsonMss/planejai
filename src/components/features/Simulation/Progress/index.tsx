@@ -3,7 +3,7 @@ interface StepProgressProps {
   totalSteps: number;
 }
 
-export function StepProgress({ currentStep, totalSteps }: StepProgressProps) {
+export function FormProgress({ currentStep, totalSteps }: StepProgressProps) {
   const progress = (currentStep / totalSteps) * 100;
 
   return (

@@ -1,4 +1,8 @@
-import { type SimulationFormData, type SimulationRecord } from '@/data/simulation';
+import {
+  type ChatMessage,
+  type SimulationFormData,
+  type SimulationRecord,
+} from '@/data/simulation';
 
 const LOCAL_STORAGE_KEY = 'simulation-data';
 
@@ -48,5 +52,26 @@ export const useSimulationStorage = () => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
   };
 
-  return { saveFormData, getAllFormData, getFormData, updateSimulation, deleteFormData };
+  const getChat = (id: string): ChatMessage[] => {
+    return getFormData(id)?.chat ?? [];
+  };
+
+  const saveChat = (id: string, chat: ChatMessage[]) => {
+    const storage = localStorage.getItem(LOCAL_STORAGE_KEY);
+    const savedData = storage ? (JSON.parse(storage) as SimulationRecord[]) : [];
+
+    const updated = savedData.map((record) => (record.id === id ? { ...record, chat } : record));
+
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
+  };
+
+  return {
+    saveFormData,
+    getAllFormData,
+    getFormData,
+    updateSimulation,
+    deleteFormData,
+    getChat,
+    saveChat,
+  };
 };

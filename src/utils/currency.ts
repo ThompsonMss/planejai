@@ -16,3 +16,10 @@ export function formatCurrencyMask(value: string): string {
 export function parseCurrency(value: string): number {
   return parseFloat(value.replace(/\./g, '').replace(',', '.').replace('R$', '')) || 0;
 }
+
+export function formatCurrencyBRL(value: number): string {
+  return value.toLocaleString('pt-BR', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+}
